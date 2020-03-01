@@ -1,0 +1,25 @@
+function init(self)
+	msg.post(".", "acquire_input_focus") -- <1>
+	self.vel = vmath.vector3() -- <2>	
+end
+
+function update(self, dt)
+	local pos = go.get_position() -- <3>
+	pos = pos + self.vel * dt -- <4>
+	go.set_position(pos) -- <5>
+
+	self.vel.x = 0 -- <6>
+	self.vel.y = 0
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash("up") then
+		self.vel.y = 150 -- <7>
+	elseif action_id == hash("down") then
+		self.vel.y = -150
+	elseif action_id == hash("left") then
+		self.vel.x = -150 -- <8>
+	elseif action_id == hash("right") then
+		self.vel.x = 150
+	end
+end
