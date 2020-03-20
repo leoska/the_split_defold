@@ -1,0 +1,30 @@
+{
+	"name": "extension-path",
+	"displayName": "extensionPath",
+	"description": "New Command: extensionPath",
+	"version": "0.0.3",
+	"publisher": "actboy168",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/actboy168/vscode-extensionPath"
+	},
+	"bugs": {
+		"url": "https://github.com/actboy168/vscode-extensionPath/issues"
+	},
+	"categories": [
+		"Other"
+	],
+	"keywords": [],
+	"activationEvents": [
+		"onCommand:extensionPath"
+	],
+	"engines": {
+		"vscode": "^1.35.0"
+	},
+	"main": "./extension",
+	"__metadata": {
+		"id": "9e53642f-1ba5-412b-8020-a6c8afc76644",
+		"publisherId": "77f6b700-85ff-429b-aa2d-8b82afbcf8db",
+		"publisherDisplayName": "actboy168"
+	}
+}

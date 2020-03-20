@@ -1,0 +1,492 @@
+{
+	"name": "lua-debug",
+	"displayName": "Lua Debug",
+	"version": "1.22.5",
+	"publisher": "actboy168",
+	"icon": "images/logo.png",
+	"description": "Visual Studio Code debugger extension for Lua",
+	"categories": [
+		"Debuggers"
+	],
+	"keywords": [
+		"lua",
+		"debug",
+		"debuggers"
+	],
+	"author": {
+		"name": "actboy168"
+	},
+	"private": true,
+	"engines": {
+		"vscode": "^1.19.0"
+	},
+	"extensionKind": [
+		"workspace"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/actboy168/lua-debug"
+	},
+	"bugs": {
+		"url": "https://github.com/actboy168/lua-debug/issues"
+	},
+	"main": "./js/extension.js",
+	"activationEvents": [
+		"onDebugInitialConfigurations",
+		"onDebugResolve:lua"
+	],
+	"contributes": {
+		"breakpoints": [
+			{
+				"language": "lua"
+			}
+		],
+		"debuggers": [
+			{
+				"type": "lua",
+				"languages": [
+					"lua"
+				],
+				"label": "Lua Debug",
+				"configurationSnippets": [
+					{
+						"label": "Lua Debug: Launch Script",
+						"description": "A new configuration for launching a lua debug program",
+						"body": {
+							"name": "${1:launch}",
+							"type": "lua",
+							"request": "launch",
+							"stopOnEntry": true,
+							"program": "^\"\\${workspaceFolder}/${2:main.lua}\"",
+							"cwd": "^\"\\${workspaceFolder}\"",
+							"path": "^\"\\${workspaceFolder}/?.lua\"",
+							"cpath": "^\"\\${workspaceFolder}/?.dll\"",
+							"arg": [],
+							"consoleCoding": "utf8"
+						}
+					},
+					{
+						"label": "Lua Debug: Launch Process",
+						"description": "A new configuration for launching a lua process",
+						"body": {
+							"name": "${1:launch process}",
+							"type": "lua",
+							"request": "launch",
+							"stopOnEntry": true,
+							"runtimeExecutable": "^\"\\${workspaceFolder}/lua.exe\"",
+							"runtimeArgs": "^\"\\${workspaceFolder}/${2:main.lua}\"",
+							"consoleCoding": "utf8"
+						}
+					},
+					{
+						"label": "Lua Debug: Attach",
+						"description": "A new configuration for attaching a lua debug program",
+						"body": {
+							"name": "${1:attach}",
+							"type": "lua",
+							"request": "attach",
+							"stopOnEntry": true,
+							"address": "127.0.0.1:4278"
+						}
+					}
+				],
+				"configurationAttributes": {
+					"launch": {
+						"properties": {
+							"program": {
+								"type": "string",
+								"markdownDescription": "Lua program to debug - set this to the path of the script",
+								"default": "${workspaceFolder}/main.lua"
+							},
+							"cwd": {
+								"type": [
+									"string",
+									"null"
+								],
+								"markdownDescription": "Working directory at program startup",
+								"default": "${workspaceFolder}"
+							},
+							"env": {
+								"type": "object",
+								"additionalProperties": {
+									"type": [
+										"string",
+										"null"
+									]
+								},
+								"markdownDescription": "Environment variables passed to the program. The value `null` removes the variable from the environment.",
+								"default": {
+									"PATH": "${workspaceFolder}"
+								}
+							},
+							"stopOnEntry": {
+								"type": "boolean",
+								"markdownDescription": "Automatically stop after entry.",
+								"default": false
+							},
+							"stopOnThreadEntry": {
+								"type": "boolean",
+								"markdownDescription": "Automatically stop after thread entry.",
+								"default": true
+							},
+							"termOnExit": {
+								"type": "boolean",
+								"markdownDescription": "Automatically terminate process after exit.",
+								"default": true
+							},
+							"luaVersion": {
+								"type": "string",
+								"markdownDescription": "%lua.debug.launch.luaVersion.description%",
+								"default": "5.3",
+								"enum": [
+									"5.1",
+									"5.2",
+									"5.3",
+									"5.4"
+								]
+							},
+							"luaArch": {
+								"type": "string",
+								"markdownDescription": "%lua.debug.launch.luaArch.description%",
+								"default": "x86_64",
+								"enum": [
+									"x86",
+									"x86_64"
+								]
+							},
+							"luaexe": {
+								"type": "string",
+								"markdownDescription": "Absolute path to the lua exe.",
+								"default": "${workspaceFolder}/lua.exe"
+							},
+							"path": {
+								"type": [
+									"string",
+									"array"
+								],
+								"markdownDescription": "Search path for Lua programs",
+								"default": "${workspaceFolder}/?.lua"
+							},
+							"cpath": {
+								"type": [
+									"string",
+									"array"
+								],
+								"markdownDescription": "Search path for native libraries",
+								"default": "${workspaceFolder}/?.dll"
+							},
+							"arg0": {
+								"type": [
+									"string",
+									"array"
+								],
+								"markdownDescription": "Command line argument, arg[-n] ... arg[0]",
+								"default": []
+							},
+							"arg": {
+								"type": "array",
+								"markdownDescription": "Command line argument, arg[1] ... arg[n]",
+								"default": []
+							},
+							"consoleCoding": {
+								"type": "string",
+								"markdownDescription": "%lua.debug.launch.consoleCoding.description%",
+								"default": "utf8",
+								"enum": [
+									"utf8",
+									"ansi",
+									"none"
+								]
+							},
+							"sourceMaps": {
+								"type": "array",
+								"markdownDescription": "The source path of the remote host and the source path of local.",
+								"default": [
+									[
+										"./*",
+										"${workspaceFolder}/*"
+									]
+								]
+							},
+							"sourceCoding": {
+								"type": "string",
+								"markdownDescription": "%lua.debug.launch.sourceCoding.description%",
+								"default": "utf8",
+								"enum": [
+									"utf8",
+									"ansi"
+								]
+							},
+							"sourceFormat": {
+								"type": "string",
+								"markdownDescription": "Source format",
+								"default": "path",
+								"enum": [
+									"path",
+									"string",
+									"linuxpath"
+								]
+							},
+							"pathFormat": {
+								"type": "string",
+								"markdownDescription": "Path format",
+								"default": "path",
+								"enum": [
+									"path",
+									"linuxpath"
+								]
+							},
+							"runtimeExecutable": {
+								"type": [
+									"string",
+									"null"
+								],
+								"markdownDescription": "Runtime to use. Either an absolute path or the name of a runtime available on the PATH.",
+								"default": "${workspaceFolder}/lua.exe"
+							},
+							"runtimeArgs": {
+								"type": [
+									"string",
+									"array",
+									"null"
+								],
+								"markdownDescription": "Arguments passed to the runtime executable.",
+								"default": "${workspaceFolder}/main.lua"
+							},
+							"console": {
+								"type": "string",
+								"enum": [
+									"internalConsole",
+									"integratedTerminal",
+									"externalTerminal"
+								],
+								"enummarkdownDescriptions": [
+									"%lua.debug.launch.console.internalConsole.description%",
+									"%lua.debug.launch.console.integratedTerminal.description%",
+									"%lua.debug.launch.console.externalTerminal.description%"
+								],
+								"markdownDescription": "%lua.debug.launch.console.description%",
+								"default": "integratedTerminal"
+							},
+							"skipFiles": {
+								"type": "array",
+								"markdownDescription": "An array of glob patterns for files to skip when debugging.",
+								"items": {
+									"type": "string"
+								},
+								"default": []
+							},
+							"outputCapture": {
+								"type": "array",
+								"items": {
+									"enum": [
+										"print",
+										"io.write",
+										"stdout",
+										"stderr"
+									]
+								},
+								"markdownDescription": "From where to capture output messages: print or stdout/stderr streams.",
+								"default": [
+									"print",
+									"io.write",
+									"stderr"
+								]
+							},
+							"internalModule": {
+								"type": "string",
+								"markdownDescription": "Internal module name",
+								"default": "debugger"
+							},
+							"useWSL": {
+								"type": "boolean",
+								"description": "Use Windows Subsystem for Linux.",
+								"default": true
+							}
+						}
+					},
+					"attach": {
+						"properties": {
+							"stopOnEntry": {
+								"type": "boolean",
+								"markdownDescription": "Automatically stop after entry.",
+								"default": false
+							},
+							"stopOnThreadEntry": {
+								"type": "boolean",
+								"markdownDescription": "Automatically stop after thread entry.",
+								"default": true
+							},
+							"termOnExit": {
+								"type": "boolean",
+								"markdownDescription": "Automatically terminate process after exit.",
+								"default": false
+							},
+							"address": {
+								"type": "string",
+								"markdownDescription": "Debugger address.\n  1. IPv4 e.g. `127.0.0.1:4278`\n  2. IPv6 e.g. `[::1]:4278`\n  3. Unix domain socket e.g. `@c:\\unix.sock`",
+								"default": "127.0.0.1:4278"
+							},
+							"client": {
+								"type": "boolean",
+								"markdownDescription": "Choose whether to `connect` or `listen`.",
+								"default": true
+							},
+							"processId": {
+								"type": "integer",
+								"markdownDescription": "Id of process to attach to.",
+								"default": 0
+							},
+							"processName": {
+								"type": "string",
+								"markdownDescription": "Name of process to attach to.",
+								"default": "lua.exe"
+							},
+							"consoleCoding": {
+								"type": "string",
+								"markdownDescription": "%lua.debug.launch.consoleCoding.description%",
+								"default": "utf8",
+								"enum": [
+									"utf8",
+									"ansi",
+									"none"
+								]
+							},
+							"sourceCoding": {
+								"type": "string",
+								"markdownDescription": "%lua.debug.launch.sourceCoding.description%",
+								"default": "utf8",
+								"enum": [
+									"utf8",
+									"ansi"
+								]
+							},
+							"sourceMaps": {
+								"type": "array",
+								"markdownDescription": "The source path of the remote host and the source path of local.",
+								"default": [
+									[
+										"./*",
+										"${workspaceFolder}/*"
+									]
+								]
+							},
+							"sourceFormat": {
+								"type": "string",
+								"markdownDescription": "Source format",
+								"default": "path",
+								"enum": [
+									"path",
+									"string",
+									"linuxpath"
+								]
+							},
+							"pathFormat": {
+								"type": "string",
+								"markdownDescription": "Path format",
+								"default": "path",
+								"enum": [
+									"path",
+									"linuxpath"
+								]
+							},
+							"skipFiles": {
+								"type": "array",
+								"markdownDescription": "An array of glob patterns for files to skip when debugging.",
+								"items": {
+									"type": "string"
+								},
+								"default": []
+							},
+							"outputCapture": {
+								"type": "array",
+								"items": {
+									"enum": [
+										"print",
+										"io.write",
+										"stdout",
+										"stderr"
+									]
+								},
+								"markdownDescription": "From where to capture output messages: print or stdout/stderr streams.",
+								"default": [
+									"print",
+									"io.write",
+									"stderr"
+								]
+							},
+							"internalModule": {
+								"type": "string",
+								"markdownDescription": "Internal module name",
+								"default": "debugger"
+							}
+						}
+					}
+				}
+			}
+		],
+		"configuration": {
+			"properties": {
+				"lua.debug.settings.console": {
+					"type": "string",
+					"enum": [
+						"internalConsole",
+						"integratedTerminal",
+						"externalTerminal"
+					],
+					"enumDescriptions": [
+						"%lua.debug.launch.console.internalConsole.description%",
+						"%lua.debug.launch.console.integratedTerminal.description%",
+						"%lua.debug.launch.console.externalTerminal.description%"
+					],
+					"description": "%lua.debug.launch.console.description%",
+					"default": "internalConsole"
+				},
+				"lua.debug.settings.luaVersion": {
+					"type": "string",
+					"description": "%lua.debug.launch.luaVersion.description%",
+					"default": "5.3",
+					"enum": [
+						"5.1",
+						"5.2",
+						"5.3",
+						"5.4"
+					]
+				},
+				"lua.debug.settings.luaArch": {
+					"type": "string",
+					"description": "%lua.debug.launch.luaArch.description%",
+					"default": "x86_64",
+					"enum": [
+						"x86",
+						"x86_64"
+					]
+				},
+				"lua.debug.settings.consoleCoding": {
+					"type": "string",
+					"description": "%lua.debug.launch.consoleCoding.description%",
+					"default": "utf8",
+					"enum": [
+						"utf8",
+						"ansi",
+						"none"
+					]
+				},
+				"lua.debug.settings.sourceCoding": {
+					"type": "string",
+					"description": "%lua.debug.launch.sourceCoding.description%",
+					"default": "utf8",
+					"enum": [
+						"utf8",
+						"ansi"
+					]
+				}
+			}
+		}
+	},
+	"__metadata": {
+		"id": "e5c7d4c8-9eac-4eb8-95fa-ba6865456277",
+		"publisherId": "77f6b700-85ff-429b-aa2d-8b82afbcf8db",
+		"publisherDisplayName": "actboy168"
+	}
+}

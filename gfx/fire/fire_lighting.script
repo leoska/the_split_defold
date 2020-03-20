@@ -1,0 +1,14 @@
+function init(self)
+	self.temp=0
+end
+function update(self)
+	if self.temp == 5 then
+		scale_kof=math.random(20,30)*0.01
+		print(scale_kof)
+		scale_kof_x=scale_kof+0.5
+		go.set("/fire_light", "scale.x", scale_kof_x)
+		go.set("/fire_light", "scale.y", scale_kof)
+		self.temp=0
+	end
+	self.temp=self.temp+1
+end
