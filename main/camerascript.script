@@ -1,0 +1,25 @@
+function init(self)
+	msg.post(".", "acquire_input_focus")
+	msg.post("#camera", "acquire_camera_focus")
+	self.vel = vmath.vector3()
+end
+
+function update(self, dt)
+	local pos = go.get_position("Camera")
+	pos = pos + self.vel * dt
+	go.set_position(pos)
+	self.vel.x = 0
+	self.vel.y = 0
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash("Up") then
+		self.vel.y = 150
+	elseif action_id == hash("Down") then
+		self.vel.y = -150
+	elseif action_id == hash("Left") then
+		self.vel.x = -150
+	elseif action_id == hash("Right") then
+		self.vel.x = 150
+	end
+end
